@@ -1,23 +1,21 @@
 import React from "react";
+import './ArriendosStyle.css'
 
 import { crearArriendo } from "../core/apiCore";
 
 const CrearArriendoForm = () => {
     const [values, setValues] = React.useState({
         titulo: "",
-        descripcion: "",
         precio: "",
         ubicacion: "",
         capacidad: "",
         imagen: "",
-        fecha: "",
-        estado: "",
         success: false,
         error: '',
         loading: false,
     });
 
-    const { titulo, descripcion, precio, ubicacion, capacidad, imagen, fecha, estado, success, error, loading } = values;
+    const { titulo, precio, ubicacion, capacidad, imagen, success, error, loading } = values;
 
     const handleChange = event => {
         setValues({ ...values, [event.target.name]: event.target.value });
@@ -25,7 +23,7 @@ const CrearArriendoForm = () => {
 
     const clickSubmit = () => {
         setValues({ ...values, error: '', loading: true });
-        const arriendo = { titulo, descripcion, precio, ubicacion, capacidad, imagen, fecha, estado };
+        const arriendo = { titulo,  precio, ubicacion, capacidad, imagen };
         crearArriendo(arriendo)
             .then(data => {
                 if (data.error) {
@@ -34,13 +32,10 @@ const CrearArriendoForm = () => {
                     setValues({
                         ...values,
                         titulo: "",
-                        descripcion: "",
                         precio: "",
                         ubicacion: "",
                         capacidad: "",
                         imagen: "",
-                        fecha: "",
-                        estado: "",
                         success: true,
                         loading: false,
                     });
@@ -52,49 +47,40 @@ const CrearArriendoForm = () => {
     };
 
     const crearArriendoForm = () => (
-        <div>
+        <div className="register__arriendos_container">
+            <div className="register__arriendos_form">
+                <h1>Registro de Arriendo</h1>
 
-            <form>
-                <div className="form-group">
-                    <label className="text-muted">Título</label>
-                    <input onChange={handleChange} type="text" name="titulo" className="form-control" value={titulo} />
+                <form>
+                    <div className="form-group">
+                        <label className="text-muted">Título</label>
+                        <input onChange={handleChange} type="text" name="titulo" className="form-control" placeholder="Título" value={titulo} />
+                    </div>
+                    <div className="form-group">
+                        <label className="text-muted">Precio</label>
+                        <input onChange={handleChange} type="text" name="precio" className="form-control"  placeholder="Precio" value={precio} />
+                    </div>
+                    <div className="form-group">
+                        <label className="text-muted">Ubicación</label>
+                        <input onChange={handleChange} type="text" name="ubicacion" className="form-control" placeholder="Ubicación" value={ubicacion} />
+                    </div>
+                    <div className="form-group">
+                        <label className="text-muted">Capacidad</label>
+                        <input onChange={handleChange} type="text" name="capacidad" className="form-control" placeholder="Capacidad" value={capacidad} />
+                    </div>
+                    <div className="form-group-img">
+                        <label className="text-muted">Imagen</label>
+                        <input onChange={handleChange} type="file" name="imagen" className="form-control-img" placeholder="Imagen" value={imagen} />
+                    </div>
+                    
+                </form>
+                <div className="boton">
+                    <button type="submit" onClick={clickSubmit}>
+                        {loading ? 'Cargando...' : 'Crear Arriendo'}
+                    </button>
                 </div>
-                <div className="form-group">
-                    <label className="text-muted">Descripción</label>
-                    <textarea onChange={handleChange} type="text" name="descripcion" className="form-control" value={descripcion} />
-                </div>
-                <div className="form-group">
-                    <label className="text-muted">Precio</label>
-                    <input onChange={handleChange} type="number" name="precio" className="form-control" value={precio} />
-                </div>
-                <div className="form-group">
-                    <label className="text-muted">Ubicación</label>
-                    <input onChange={handleChange} type="text" name="ubicacion" className="form-control" value={ubicacion} />
-                </div>
-                <div className="form-group">
-                    <label className="text-muted">Capacidad</label>
-                    <input onChange={handleChange} type="number" name="capacidad" className="form-control" value={capacidad} />
-                </div>
-                <div className="form-group">
-                    <label className="text-muted">Imagen</label>
-                    <input onChange={handleChange} type="file" name="imagen" className="form-control" value={imagen} />
-                </div>
-                <div className="form-group">
-                    <label className="text-muted">Fecha</label>
-                    <input onChange={handleChange} type="date" name="fecha" className="form-control" value={fecha} />
-                </div>
-                <div className="form-group">
-                    <label className="text-muted">Estado</label>
-                    <input onChange={handleChange} type="text" name="estado" className="form-control" value={estado} />
-                </div>
-            </form>
-            <div className="boton">
-                <button type="submit" onClick={clickSubmit}>
-                    {loading ? 'Cargando...' : 'Crear Arriendo'}
-                </button>
             </div>
         </div>
-
     );
 
     const showError = () => (
@@ -105,7 +91,7 @@ const CrearArriendoForm = () => {
 
     const showSuccess = () => (
         <div className='alerta' style={{ display: success ? '' : 'none' }}>
-            Nueva cuenta creada con éxito.
+            Nueva arriendo creado con éxito.
         </div>
     )
 

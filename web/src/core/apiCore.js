@@ -1,7 +1,7 @@
 //crear arriendo 
 export const crearArriendo = async (arriendoData) => {
     try {
-        const response = await fetch('http://localhost:5000/arriendos', {
+        const response = await fetch('http://localhost:8000/crear/nuevo/arriendo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -5,10 +5,6 @@ const nuevoArriendo = new mongoose.Schema({
         type: String,
         required: true
     },
-    descripcion:{
-        type: String,
-        required: true
-    },
     precio:{
         type: String,
         required: true

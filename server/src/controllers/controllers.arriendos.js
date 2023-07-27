@@ -2,20 +2,22 @@ const arriendo = require('../models/arriendos');
 
 // crear un nuevo arriendo
 exports.crearArriendo = async (req, res) => {
+    
+    const fechaActual = new Date();
+
     const nuevoArriendo = new arriendo({
         titulo: req.body.titulo,
-        descripcion: req.body.descripcion,
         precio: req.body.precio,
         ubicacion: req.body.ubicacion,
         capacidad: req.body.capacidad,
         imagen: req.body.imagen,
-        fecha: req.body.fecha,
-        estado: req.body.estado
+        fecha: fechaActual,
+        estado: "Disponible"
     });
 
     try {
-        const nuevoArriendo = await nuevoArriendo.save();
-        res.status(201).json({msg: 'Arriendo creado correctamente', arriendo: nuevoArriendo});   
+        const nuevoarriendo = await nuevoArriendo.save();
+        res.status(201).json({msg: 'Arriendo creado correctamente', arriendo: nuevoarriendo});   
     } catch (error) {
         console.log(error);
         res.json({mensaje: 'Hubo un error'});

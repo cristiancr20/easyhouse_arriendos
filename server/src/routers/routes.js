@@ -9,3 +9,5 @@ router.post('/crear/nuevo/arriendo', arriendoController.crearArriendo);
 router.get('/obtener/arriendos', arriendoController.obtenerArriendos);
 //obtener un arriendo por id
 router.get('/obtener/arriendo/:id', arriendoController.obtenerArriendo);
+
+module.exports = router;

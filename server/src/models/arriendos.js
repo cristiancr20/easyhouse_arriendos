@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-//
 const nuevoArriendo = new mongoose.Schema({
     titulo:{
         type: String,
@@ -36,4 +35,4 @@ const nuevoArriendo = new mongoose.Schema({
     },
 }, {timestamps: true});
 
-module.exports = mongoose.model('Arriendo', nuevoArriendo);
+module.exports = mongoose.model('arriendo', nuevoArriendo);

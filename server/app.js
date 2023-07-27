@@ -1,8 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-
-const routes = require('./src/routes/routes');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 require("dotenv").config();
@@ -14,16 +13,16 @@ app.use(cors());
 
 //conection bd
 mongoose
-    .connect(process.env.DATABASE, {
-        useNewUrlParser: true, useUnifiedTopology: true
-    })
-    .then(() => console.log('Conexión exitosa con MongoDB'))
-    .catch(err => console.error('Error al conectar con MongoDB:', err));
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Conexión exitosa con MongoDB'))
+  .catch(err => console.error('Error al conectar con MongoDB:', err));
 
 const port = process.env.PORT;
 
 app.listen(port, () => {
-    console.log("aplicacion ejucatandose", port);
+  console.log("aplicacion ejucatandose", port);
 });
 
-app.use(routes);
+const rutas = require("./src/routers/routes");
+app.use(rutas);

@@ -28,7 +28,7 @@ exports.crearArriendo = async (req, res) => {
 exports.obtenerArriendos = async (req, res) => {
     try {
         const arriendos = await arriendo.find();
-        res.json({arriendos});
+        res.json(arriendos);
     } catch (error) {
         console.log(error);
         res.json({mensaje: 'Hubo un error'});

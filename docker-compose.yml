@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  # Servicio para la aplicación React
+  cliente:
+    container_name: arriendos-web
+    build: ./cliente
+    ports:
+      - "3000:3000" # Mapeo de puertos (puerto del host:puerto del contenedor)
+    networks:
+      - redapp
+
+  # Servicio para el servidor Node.js
+  server:
+    container_name: arriendos-servidor
+    build: ./server
+    ports:
+      - "5050:5050" # Mapeo de puertos (puerto del host:puerto del contenedor)
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/arriendos
+    networks:
+      - redapp
+    volumes:
+      - ./server:/app
+
+  # Servicio para MongoDB
+  mongo:
+    container_name: mongo-db-ms2
+    image: mongo # Utilizamos la imagen oficial de MongoDB desde Docker Hub
+    ports:
+      - "27019:27017" # Mapeo de puertos (puerto del host:puerto del contenedor)
+    networks:
+      - redapp
+
+networks:
+  redapp:
+    external: true

@@ -9,7 +9,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/' element = {<ListarArriendo/>}/>
+          <Route path='/obtener/arriendo' element = {<ListarArriendo/>}/>
           <Route path="/registrar/arriendo" element={<RegistrarArriendosForm/>} />
           
           <Route path='*' element="Error 404"></Route> 

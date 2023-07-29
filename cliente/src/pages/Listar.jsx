@@ -1,42 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "./Listar.css";
 
-//icons
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaPlusSquare } from "react-icons/fa";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { FaCalendarDays } from "react-icons/fa6";
-import { FaDollarSign } from "react-icons/fa6";
-import { FaHouseUser } from "react-icons/fa6";
+// Icons
+import { FaMapMarkerAlt, FaPlusSquare, FaDollarSign, FaHouseUser } from "react-icons/fa";
+import { FaCalendarDays, FaPeopleGroup } from "react-icons/fa6";
+
+import { listarArriendos } from "../core/apiCore";
 
 const Listar = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios
-            .get("http://localhost:8000/obtener/arriendos")
-            .then((response) => {
-                setData(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const fetchData = async () => {
+            try {
+                const response = await listarArriendos();
+                setData(response); // Aquí utilizamos directamente 'response' porque la función listarArriendos ya devuelve el array de arriendos
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
     }, []);
 
     return (
         <div className="listar__container">
-            
             <div className="lista">
-            <Link to="/registrar/arriendo" className="post_button">
-                <p className="post">Nuevo Post </p><FaPlusSquare/> 
-            </Link>
+                
                 <div className="card_container">
                     {data.map((item) => (
                         <div key={item._id} className="card">
                             <div className="card_imagen">
-                                <img src={item.imagen} alt={item.imagen} />
+                                <img src={item.imagen} alt={item.titulo} />
                             </div>
                             <div className="card_descripcion">
                                 <h1>{item.titulo}</h1>
@@ -44,17 +39,13 @@ const Listar = () => {
                                     <FaDollarSign /> {item.precio} $
                                 </p>
                                 <p>
-                                    {" "}
                                     <FaMapMarkerAlt /> {item.ubicacion}
                                 </p>
                                 <p>
-                                    {" "}
                                     <FaPeopleGroup /> {item.capacidad}
                                 </p>
-
                                 <p>
-                                    <FaCalendarDays />
-                                    {item.fecha}
+                                    <FaCalendarDays /> {item.fecha}
                                 </p>
                                 <p>
                                     <FaHouseUser /> {item.estado}

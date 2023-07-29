@@ -1,15 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import './ArriendosStyle.css'
 
 import { crearArriendo } from "../core/apiCore";
 
 const CrearArriendoForm = () => {
-    const [values, setValues] = React.useState({
-        titulo: "",
-        precio: "",
-        ubicacion: "",
-        capacidad: "",
-        imagen: "",
+    const [values, setValues] = useState({
+        titulo: '',
+        precio: '',
+        ubicacion: '',
+        capacidad: '',
+        imagen: '',
         success: false,
         error: '',
         loading: false,
@@ -18,7 +18,7 @@ const CrearArriendoForm = () => {
     const { titulo, precio, ubicacion, capacidad, imagen, success, error, loading } = values;
 
     const handleChange = event => {
-        setValues({ ...values, [event.target.name]: event.target.value });
+        setValues({ ...values, error:'', [event.target.name]: event.target.value });
     }
 
     const clickSubmit = () => {
@@ -31,11 +31,12 @@ const CrearArriendoForm = () => {
                 } else {
                     setValues({
                         ...values,
-                        titulo: "",
-                        precio: "",
-                        ubicacion: "",
-                        capacidad: "",
-                        imagen: "",
+                        titulo: '',
+                        precio: '',
+                        ubicacion: '',
+                        capacidad: '',
+                        imagen: '',
+                        error: '',
                         success: true,
                         loading: false,
                     });
@@ -44,7 +45,7 @@ const CrearArriendoForm = () => {
             .catch(error => {
                 setValues({ ...values, error: 'Hubo un problema con la solicitud.', success: false, loading: false });
             });
-    };
+    }
 
     const crearArriendoForm = () => (
         <div className="register__arriendos_container">
@@ -53,24 +54,24 @@ const CrearArriendoForm = () => {
 
                 <form>
                     <div className="form-group">
-                        <label className="text-muted">Título</label>
-                        <input onChange={handleChange} type="text" name="titulo" className="form-control" placeholder="Título" value={titulo} />
+                        <label htmlFor="titulo">Título</label>
+                        <input onChange={handleChange} type="text" name="titulo" placeholder="Título" value={titulo} />
                     </div>
                     <div className="form-group">
-                        <label className="text-muted">Precio</label>
-                        <input onChange={handleChange} type="text" name="precio" className="form-control"  placeholder="Precio" value={precio} />
+                        <label htmlFor="precio">Precio</label>
+                        <input onChange={handleChange} type="text" name="precio"  placeholder="Precio" value={precio} />
                     </div>
                     <div className="form-group">
-                        <label className="text-muted">Ubicación</label>
-                        <input onChange={handleChange} type="text" name="ubicacion" className="form-control" placeholder="Ubicación" value={ubicacion} />
+                        <label htmlFor="ubicacion">Ubicación</label>
+                        <input onChange={handleChange} type="text" name="ubicacion" placeholder="Ubicación" value={ubicacion} />
                     </div>
                     <div className="form-group">
-                        <label className="text-muted">Capacidad</label>
-                        <input onChange={handleChange} type="text" name="capacidad" className="form-control" placeholder="Capacidad" value={capacidad} />
+                        <label htmlFor="capacidad">Capacidad</label>
+                        <input onChange={handleChange} type="text" name="capacidad" placeholder="Capacidad" value={capacidad} />
                     </div>
                     <div className="form-group-img">
-                        <label className="text-muted">Imagen</label>
-                        <input onChange={handleChange} type="file" name="imagen" className="form-control-img" placeholder="Imagen" value={imagen} />
+                        <label htmlFor="imagen">Imagen</label>
+                        <input onChange={handleChange} type="text" name="imagen" className="form-control-img" placeholder="Imagen" value={imagen} />
                     </div>
                     
                 </form>
